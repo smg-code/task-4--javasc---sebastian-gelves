@@ -11,7 +11,6 @@ async function traerdatosapi(){
     const data = await response.json() //await espera la promesa y json convierte los datos en manejables
     console.log(data)
     let  eventos = data.events
-    let  fecha   = data.currentDate
 
         const queryString = location.search  // la ruta - forma de generar el id para luego buscarlo
                                             //<a href="./Ficha.html?id=${eventos[i]._id}" class="boton-ficha">Info</a>

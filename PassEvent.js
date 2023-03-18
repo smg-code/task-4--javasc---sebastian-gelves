@@ -1,4 +1,30 @@
+let urlapi = ("https://mindhub-xj03.onrender.com/api/amazing")
+let data = {}
+let  eventos = []
+let  fecha   = []
 
+async function traerdatosapi(){ 
+  try{
+    const response = await fetch(urlapi) //await espera la promesa y fetch trae los datos
+    const data = await response.json() //await espera la promesa y json convierte los datos en manejables
+    console.log(data)
+    eventos = data.events
+    fecha   = data.currentDate
+    
+    EventPass(eventos)
+
+    Categorias = categoriasNoRep(eventos)
+    console.log("categorias",Categorias)
+
+    checkBoxesYSearch('#SelectroYBusquedaPasadas',Categorias)
+   
+  }
+  catch(error) { //manejo del error
+    console.log(error)
+  }
+}
+
+traerdatosapi()
 
 function EventPass (array){
   let arrayDeEventos = array
@@ -25,7 +51,7 @@ function EventPass (array){
   }
   tagToUpdate.innerHTML = body;
 }
-EventPass(eventos)
+
 
 function categoriasNoRep(eventos) {
   let Categorias = [] 
@@ -35,8 +61,7 @@ function categoriasNoRep(eventos) {
       }    
   })                                              
   return Categorias
-  }  
-Categorias = categoriasNoRep(eventos)                                                
+  }                                                 
 
 function checkBoxesYSearch(id_etiquetas,category) { 
     let barraSelectorYBusqueda = document.querySelector(id_etiquetas);
@@ -53,18 +78,6 @@ function checkBoxesYSearch(id_etiquetas,category) {
     class="contact-input" type="text" name="texto" placeholder="Busqueda">`) 
     barraSelectorYBusqueda.innerHTML = category.join('');
 }
-checkBoxesYSearch('#SelectroYBusquedaPasadas',Categorias)
-
-
-function noEncontrada() {
-  let nofound = [{_id: 0,
-          "image":"https://cdn.pixabay.com/photo/2016/05/30/14/23/detective-1424831_1280.png",
-          "name":"No se encontro evento",
-          "date":"2023-12-12", //fecha futura para que funciones son el if
-          "description":"haga una nueva busqueda.",
-  }]
-  return nofound
-  }
 
 function captureData() {
     let texto = document.getElementById('ID_BUSQUEDA').value.toLocaleLowerCase() 
@@ -82,6 +95,15 @@ function captureData() {
     }
 }
 
+function noEncontrada() {
+  let nofound = [{_id: 0,
+          "image":"https://cdn.pixabay.com/photo/2016/05/30/14/23/detective-1424831_1280.png",
+          "name":"No se encontro evento",
+          "date":"2020-12-12", //fecha futura para que funciones son el if
+          "description":"haga una nueva busqueda.",
+  }]
+  return nofound
+  }
 
 
 

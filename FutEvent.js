@@ -1,4 +1,32 @@
+let urlapi = ("https://mindhub-xj03.onrender.com/api/amazing")
+let data = {}
+let  eventos = []
+let  fecha   = []
 
+//hago una funcion para traer los datos de la api
+//funcion asincronica
+async function traerdatosapi(){ 
+  try{
+    const response = await fetch(urlapi) //await espera la promesa y fetch trae los datos
+    const data = await response.json() //await espera la promesa y json convierte los datos en manejables
+    console.log(data)
+    eventos = data.events
+    fecha   = data.currentDate
+    
+    EventFut(eventos)
+
+    Categorias = categoriasNoRep(eventos)
+    console.log("categorias",Categorias)
+
+    checkBoxesYSearch('#SelectroYBusquedaFuturas',Categorias) 
+   
+  }
+  catch(error) { //manejo del error
+    console.log(error)
+  }
+}
+
+traerdatosapi()
 
 function EventFut (array){
   let arrayDeEventos = array
@@ -25,7 +53,7 @@ function EventFut (array){
   }
   tagToUpdate.innerHTML = body;
 }
-EventFut(eventos)
+
 
 function categoriasNoRep(eventos) {
 let Categorias = [] 
@@ -36,7 +64,6 @@ let Categorias = []
 })                                              
 return Categorias
 }  
-Categorias = categoriasNoRep(eventos)
 
 function checkBoxesYSearch(id_etiquetas,category) { 
     let barraSelectorYBusqueda = document.querySelector(id_etiquetas); 
@@ -53,7 +80,7 @@ function checkBoxesYSearch(id_etiquetas,category) {
     class="contact-input" type="text" name="texto" placeholder="Busqueda">`) 
     barraSelectorYBusqueda.innerHTML = category.join('');
 }
-checkBoxesYSearch('#SelectroYBusquedaFuturas',Categorias) 
+
 
 function noEncontrada() {
 let nofound = [{_id: 0,
