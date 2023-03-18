@@ -1,0 +1,142 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.AEvents {
+    background: whitesmoke;
+}
+.encabezado {
+    margin-top: 1%;
+    background: rgb(100, 245, 250);
+    height: 10vh;
+    border-radius: 5px;
+}
+    .logo {
+        /*background: pink;*/
+        background-image: url(./imgenes/Logo\ Amazing\ Events.png);
+        background-size: contain; /*para quie la imagen quede 
+        contenida en la caja*/
+        background-repeat: no-repeat;/* para que no se repita*/
+        background-position: center;/* para que quede centrada*/
+    }
+    
+    nav {   
+       /* background: blue;  */
+        display: flex; 
+        justify-content: end; /*coloco el contenido al final*/
+    }
+    /* formato las cajas "a" que estan dentro del nav"*/
+    nav a {
+        color: rgb(201, 235, 11); /*color del texto */
+        text-decoration: none; /*saco el subrayado*/
+        background-color: rgb(67, 113, 237);
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 3px;
+        padding: 3px;
+        box-shadow: 10px 5px 5px black; /* sombra en la cajas de "a" en el nav*/
+    }
+    /*cambia de color el boton cuando pasa el mouse*/ 
+    header a:hover {
+        background-color: rgb(32, 224, 238);
+    }
+
+.titulopag {
+    align-items: center;
+    background: whitesmoke;
+    height: 15vh;
+}
+/*flechas de desplazamiento*/
+
+.flecha-left {
+    font-size:xx-large;
+    color: crimson;
+}
+.flecha-right {
+    font-size: xx-large;
+    color: crimson;
+}
+
+/* selector y busqueda*/
+.Selector {
+    justify-content: start;
+}
+.lupa {
+    text-decoration: none; /*saco el subrayado*/
+    background-color: rgb(67, 113, 237);
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 3px;
+    padding: 3px;
+    size: 10px;
+    font-size: large;
+    color: rgb(245, 240, 241);
+}
+
+.tablaTargetas {
+   justify-content: space-around;
+}
+
+    .boton-ficha {
+        box-shadow: 10px 5px 5px black;
+    }
+.Pie-de-pagina {
+    height: 10vh;
+    background: rgb(220, 230, 243);
+}        
+    
+    .instagram {
+        font-size: xx-large;
+        color: crimson;
+    }
+    .facebook {
+        font-size: xx-large;
+        color: rgb(9, 5, 201);
+    }
+    .whatsapp {
+        font-size: xx-large;
+        color: green;
+    }
+    .texto-final {
+        text-align: right;
+       /* background: rgb(19, 207, 44);*/
+    }
+/* pagiona Contacto */
+.Form-Conatacto {
+    justify-content: center;
+}
+.Boton-enviar {
+    box-shadow: 10px 5px 5px black;
+}
+/*pagina Ficha*/
+.imagen-pag-ficha {
+    display: flex;
+    background-size: cover;
+}
+.boton-ficha{
+        color: rgb(201, 235, 11); /*color del texto */
+        text-decoration: none; /*saco el subrayado*/
+        background-color: rgb(67, 113, 237);
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 3px;
+        padding: 3px;
+        box-shadow: 10px 5px 5px black; /* sombra en la cajas de "a" en el nav*/
+}
+/***********************/
+.flechas:hover {
+    background: none; /* le saco el color cuando pasa el mouse*/
+}
+
+/*****tablas***********/
+
+/*doy color de fondo al los encabezados de la tabla*/
+thead,
+tfoot { 
+    background-color:rgb(100, 245, 250);
+    color: crimson;
+}
+th {
+    text-align: center;
+}
