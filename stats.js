@@ -11,6 +11,10 @@ let CategoriasFut = []
 let ingresos = []
 let porcDeAscisEventFut = []
 
+let CategoriasPass = []
+let ingresosPass = []
+let porcDeAscisEventPass = []
+
 const tablaUnoBody = document.getElementById("tabla-1") //capturamos la tabla del Stats.html para despues modificar el DOM
 
 async function traerdatosapi(){ 
@@ -23,16 +27,19 @@ async function traerdatosapi(){
     //console.log(fecha)
     
     mostarLosTresEvents(eventos)
-    //console.log("id mayor porcentaje asistencia", idMayorPorcentajeAsis)
-    //console.log("id menor porcentaje asistencia", idMenorPorcentajeAsis)
-    //console.log("id mayor capacidad", idMayorCapacidad)
+    console.log("id mayor porcentaje asistencia", idMayorPorcentajeAsis)
+    console.log("id menor porcentaje asistencia", idMenorPorcentajeAsis)
+    console.log("id mayor capacidad", idMayorCapacidad)
 
     mostrarUpcomEvenPorCateg(eventos,fecha)
-    //console.log("Categorias futuras",CategoriasFut)
-    //console.log("ingreso bbbxalida",ingresos)
+    console.log("Categorias futuras",CategoriasFut)
+    console.log("ingreso bbbxalida",ingresos)
     console.log("porcentaje asistencio por categoria", porcDeAscisEventFut)
 
-    //mostraPassEvenPorCateg(eventos)
+    mostraPassEvenPorCateg(eventos,fecha)
+    console.log("Categorias pasadas",CategoriasPass)
+    console.log("ingreso event pasadas",ingresosPass)
+    console.log("porcentaje asistencio por categoria pasadas", porcDeAscisEventPass)
     
   }
   catch(error) { //manejo del error
@@ -52,68 +59,68 @@ function categoriasNoRep(eventos) {
     })                                              
     return Categorias
     } 
+
 //Genera los ids de las busquedas, de la primera tabla
 function mostarLosTresEvents(eventos) {
     let arrayeventos = eventos
     //console.log("tres",arrayeventos)
     //tres elementos 
         // 1- Eventos con mayor porcentaje de asistencia
-        MayorPorcentajeAsistencia(arrayeventos)
-        
+        MayorPorcentajeAsistencia(arrayeventos)       
         // 2 - Eventos con menor porcentaje de asistencia
         MenorPorcentajeAsistencia(arrayeventos)
-
         // 3 - Eventos con mayor capacidad
         EventoMayorCapacidad(arrayeventos)
 }    
-//id mayor porcentaje asistencia
-function MayorPorcentajeAsistencia(eventos) {
-    let arrayeventos = eventos
-    let porcentajeRef = 0
-//propiedades : assistance capacity - (capacidad/asistencia)*100
-    arrayeventos.forEach( each => {
-        let asistentes = each.assistance 
-        let capacidad = each.capacity
-        if(asistentes!=undefined){ //algunos datos de asistentes no estan
-            let porcentaje = (asistentes/capacidad)*100
-            if(porcentaje > porcentajeRef){
-                porcentajeRef = porcentaje.toFixed(2) //redondea a dos decimales
-                idMayorPorcentajeAsis = each._id
+    //id mayor porcentaje asistencia
+    function MayorPorcentajeAsistencia(eventos) {
+        let arrayeventos = eventos
+        let porcentajeRef = 0
+    //propiedades : assistance capacity - (capacidad/asistencia)*100
+        arrayeventos.forEach( each => {
+            let asistentes = each.assistance 
+            let capacidad = each.capacity
+            if(asistentes!=undefined){ //algunos datos de asistentes no estan
+                let porcentaje = (asistentes/capacidad)*100
+                if(porcentaje > porcentajeRef){
+                    porcentajeRef = porcentaje.toFixed(2) //redondea a dos decimales
+                    idMayorPorcentajeAsis = each._id
+                }
             }
-        }
-    })
-}
-//id menor porcentaje asistentes
-function MenorPorcentajeAsistencia(eventos){
-    let arrayeventos = eventos
-    let porcentajeRef = 100
-//propiedades : assistance capacity - (capacidad/asistencia)*100
-    arrayeventos.forEach( each => {
-        let asistentes = each.assistance
-        let capacidad = each.capacity
-        if(asistentes!=undefined){
-            let porcentaje = (asistentes/capacidad)*100
-            if(porcentaje < porcentajeRef){
-                porcentajeRef = porcentaje.toFixed(2)
-                idMenorPorcentajeAsis = each._id
+        })
+    }
+    //id menor porcentaje asistentes
+    function MenorPorcentajeAsistencia(eventos){
+        let arrayeventos = eventos
+        let porcentajeRef = 100
+    //propiedades : assistance capacity - (capacidad/asistencia)*100
+        arrayeventos.forEach( each => {
+            let asistentes = each.assistance
+            let capacidad = each.capacity
+            if(asistentes!=undefined){
+                let porcentaje = (asistentes/capacidad)*100
+                if(porcentaje < porcentajeRef){
+                    porcentajeRef = porcentaje.toFixed(2)
+                    idMenorPorcentajeAsis = each._id
+                }
             }
-        }
-    })
-}
-//id mayor capacidad
-function EventoMayorCapacidad(eventos){
-    let arrayeventos = eventos
-    let capacidadRef = 0
-//propiedades : capacity -
-    arrayeventos.forEach( each => {
-        let capacidad = each.capacity
-        if(capacidad > capacidadRef){
-            capacidadRef = capacidad
-            idMayorCapacidad = each._id
-        }       
-    })
-}
+        })
+    }
+    //id mayor capacidad
+    function EventoMayorCapacidad(eventos){
+        let arrayeventos = eventos
+        let capacidadRef = 0
+    //propiedades : capacity -
+        arrayeventos.forEach( each => {
+            let capacidad = each.capacity
+            if(capacidad > capacidadRef){
+                capacidadRef = capacidad
+                idMayorCapacidad = each._id
+            }       
+        })
+    }
 
+//Genera los array para la tabla de elementos de las categorias futura
 function mostrarUpcomEvenPorCateg(eventos,fechaActual){
     let arrayeventos = eventos
     let fechaRef = fechaActual
@@ -146,47 +153,101 @@ function mostrarUpcomEvenPorCateg(eventos,fechaActual){
             //dentro de la funcion xalculo el porcentaje de asistencia
             })
 }
+    //Array de categorias para futuros eventos
+    function CategoriasUpComNoRep(eventos) {
+        let CategoriasFut = [] 
+            eventos.forEach(each => {                          
+            if ( ! CategoriasFut.includes(each.category) ) {                                          
+                CategoriasFut.push(each.category)
+            }    
+        })                                              
+        return CategoriasFut
+    } 
+    //Array de ingresos por categoria futuros eventos
+    function SeparacionPorCategorias(arrayDeEventos , nombreCategoria){
+        let arrayAfiltra = arrayDeEventos
+        let nombreCategoriaparaFiltra = nombreCategoria
+            //console.log("entradaArray", arrayAfiltra)
+            //console.log("entradanombre",nombreCategoria)
+        ingresoPorCategoria = 0
+        let arrayFiltrada = arrayAfiltra.filter(each => each.category == nombreCategoriaparaFiltra)
+            //console.log("ssss",arrayFiltrada)
+        //hago la cuenta de ingreso por categoria
+        arrayFiltrada.forEach(each=>{
+            if(each.estimate != undefined){  //para poder usasr con eventos futuros y pasados
+                ingresoPorCategoria +=(each.estimate*each.price)
+            }else{
+                ingresoPorCategoria +=(each.assistance*each.price)
+            }
+                //console.log("ingreso",ingresoPorCategoria)
+            })
+        return ingresoPorCategoria
+    }
+    //Array de porcentaje de asistencia por categoria
+    function PorcentajeAsistenciaPorCategoria(arrayDeEventos,nombreCategoria){
+        let arrayAfiltra = arrayDeEventos
+        let nombreCategoriaparaFiltra = nombreCategoria
+            //console.log("entradaArray", arrayAfiltra)
+            //console.log("entradanombre",nombreCategoriaparaFiltra)
+        let sumaEstimadosTotal = 0
+        let sumaCapacidadTotal = 0
+        let porcentajePorCategoria = 0
 
-function CategoriasUpComNoRep(eventos) {
-    let CategoriasFut = [] 
-        eventos.forEach(each => {                          
-        if ( ! CategoriasFut.includes(each.category) ) {                                          
-            CategoriasFut.push(each.category)
-        }    
-    })                                              
-    return CategoriasFut
-} 
+        let arrayFiltrada = arrayAfiltra.filter(each => each.category == nombreCategoriaparaFiltra)
+        arrayFiltrada.forEach(each=>{
+            if(each.estimate != undefined){  //para poder usasr con eventos futuros y pasados
+                sumaEstimadosTotal += each.estimate
+            }else{
+                sumaEstimadosTotal += each.assistance 
+            }
+                //console.log("estimado",sumaEstimadosTotal)
+            sumaCapacidadTotal += each.capacity
+            })
+        return porcentajePorCategoria = ((sumaEstimadosTotal/sumaCapacidadTotal)*100).toFixed(2)
+    }
 
-function SeparacionPorCategorias(arrayDeEventosFut , nombreCategoria){
-    let arrayAfiltra = arrayDeEventosFut
-    let nombreCategoriaparaFiltra = nombreCategoria
-        //console.log("entradaArray", arrayAfiltra)
-        //console.log("entradanombre",nombreCategoria)
-    ingresoPorCategoria = 0
-    let arrayFiltrada = arrayAfiltra.filter(each => each.category == nombreCategoriaparaFiltra)
-        //console.log("ssss",arrayFiltrada)
-    //hago la cuenta de ingreso por categoria
-    arrayFiltrada.forEach(each=>{
-        ingresoPorCategoria +=(each.estimate*each.price)
-            //console.log("ingreso",ingresoPorCategoria)
-        })
-    return ingresoPorCategoria
+//Genera los array para la tabla de elementos de las categorias futura
+function mostraPassEvenPorCateg(eventos,fechaActual){
+    let arrayeventos = eventos
+    let fechaRef = fechaActual
+    let arrayDeEventosPass = []
+        //console.log("f",arrayeventos)
+        //console.log("a",fechaRef)
+
+    arrayDeEventosPass = arrayeventos.filter(each => each.date < fechaRef )
+        //console.log("1",arrayDeEventosPass)
+    // categorias de eventos 
+    CategoriasPass = CategoriasPassNoRep(arrayDeEventosPass)
+        //console.log("categorias futuras dentro de la funcion fut",CategoriasFut)
+    // Ingresos: estimaso * precio
+        //recorro la array de caregorias
+        CategoriasPass.forEach(each =>{ 
+            let nombreCategoria = each
+            //filtro elemento por categoria
+            ingresosPass.push(SeparacionPorCategorias(arrayDeEventosPass,nombreCategoria))
+            //a cada elemento que fue filtrado hacemos la cuenta 
+            //esta dentro de la funcion  SeparacionPorCategorias()
+            })
+    //porcentaje de asistencia : (estimados totales / capacdidad total eventos )
+    //let porcDeAscisEventFut = []
+            //recorro la array de caregorias
+         CategoriasPass.forEach(each =>{ 
+            let nombreCategoria = each
+            //filtro elemento por categoria
+            porcDeAscisEventPass.push(PorcentajeAsistenciaPorCategoria(arrayDeEventosPass,nombreCategoria))
+                //console.log("porcetaje estimado xalida",porcDeAscisEventFut)
+            //dentro de la funcion xalculo el porcentaje de asistencia
+            })
 }
+    //Array de categorias para eventos pasados
+    function CategoriasPassNoRep(eventos) {
+        let CategoriasPass = [] 
+            eventos.forEach(each => {                          
+            if ( ! CategoriasPass.includes(each.category) ) {                                          
+                CategoriasPass.push(each.category)
+            }    
+        })                                              
+        return CategoriasPass
+    } 
+    
 
-function PorcentajeAsistenciaPorCategoria(arrayDeEventosFut,nombreCategoria){
-    let arrayAfiltra = arrayDeEventosFut
-    let nombreCategoriaparaFiltra = nombreCategoria
-        //console.log("entradaArray", arrayAfiltra)
-        //console.log("entradanombre",nombreCategoriaparaFiltra)
-    let sumaEstimadosTotal = 0
-    let sumaCapacidadTotal = 0
-    let porcentajePorCategoria = 0
-
-    let arrayFiltrada = arrayAfiltra.filter(each => each.category == nombreCategoriaparaFiltra)
-    arrayFiltrada.forEach(each=>{
-        sumaEstimadosTotal += each.estimate
-            //console.log("estimado",sumaEstimadosTotal)
-        sumaCapacidadTotal += each.capacity
-        })
-    return porcentajePorCategoria = ((sumaEstimadosTotal/sumaCapacidadTotal)*100).toFixed(2)
-}
