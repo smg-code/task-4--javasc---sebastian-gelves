@@ -32,7 +32,7 @@
             </div>
             <div class="col-10 text-center"><h1>Stats</h1></div>
             <div class="col-1">
-                <a href="index.html" class="flechas">
+                <a href="./index.html" class="flechas">
                 <i class="flecha-right fa-sharp fa-solid fa-chevron-right"></i></a>
             </div>
         </div>  
@@ -42,15 +42,15 @@
         <table class="table table-bordered border-primary">
             <thead>
               <tr>
-                <th colspan="3"><h3>Events statistics</h3></th> 
+                <th colspan="3"><h3>Events statistics</h3></th> <!---->
+              </tr>
+              <tr>
+                <td>Events with highest percentage of attendance</td> <!--Eventos con mayor porcentaje de asistencia--> 
+                <td>Events with the lowest percentage of attendance</td><!--Eventos con menor porcentaje de asistencia-->
+                <td>Events with larger capacity</td><!--Eventos con mayor capacidad-->
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Events with highest percentage of attendance</td>
-                <td>Events with the lowest percentage of attendance</td>
-                <td>Events with larger capacity</td>
-              </tr>
+            <tbody id="tabla-1">
               <tr>
                 <td></td>
                 <td></td>
@@ -61,64 +61,35 @@
           <table class="table table-bordered border-primary">
             <thead>
               <tr>
-                <th colspan="3">Upcoming events statistics by category</th> 
+                <th colspan="3"><h4>Upcoming events statistics by category</h4></th> <!---->
+              </tr>
+              <tr>
+                <td>Categories</td><!--categorias-->
+                <td>Revenues</td><!--Ingresos-->
+                <td>Percentage of attendance</td><!--Porcentaje de asistencia-->
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Categories</td>
-                <td>Revenues</td>
-                <td>Percentage of attendance</td>
-              </tr>
+            <tbody id="tabla-2">
               <tr>
                 <td></td>
                 <td></td>
                 <td></td>
               </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+             
             </tbody>
           </table>
           <table class="table table-bordered border-primary">
             <thead>
               <tr>
-                <th colspan="3"><h4>Past Events statistics by category</h4></th> 
+                <th colspan="3"><h4>Past Events statistics by category</h4></th> <!---->
+              </tr>
+              <tr>
+                <td>Categories</td><!--categorias-->
+                <td>Revenues</td><!--ingresos-->
+                <td>Percentage of attendance</td><!--porcentaje de asistencia-->
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>Categories</td>
-                <td>Revenues</td>
-                <td>Percentage of attendance</td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+            <tbody id="tabla-3">
               <tr>
                 <td></td>
                 <td></td>
@@ -143,6 +114,6 @@
 
     
 </body>
-<script src="./arrayDatos.js"></script>
+<script src="./stats.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </html>
