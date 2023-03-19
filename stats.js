@@ -30,9 +30,9 @@ async function traerdatosapi(){
     //console.log("id mayor capacidad", idMayorCapacidad)
 
     mostrarUpcomEvenPorCateg(eventos,fecha)
-    console.log("Categorias futuras",CategoriasFut)
-    console.log("ingreso bbbxalida",ingresos)
-    console.log("porcentaje asistencio por categoria", porcDeAscisEventFut)
+    //console.log("Categorias futuras",CategoriasFut)
+    //console.log("ingreso bbbxalida",ingresos)
+    //console.log("porcentaje asistencio por categoria", porcDeAscisEventFut)
 
     mostraPassEvenPorCateg(eventos,fecha)
     console.log("Categorias pasadas",CategoriasPass)
@@ -41,9 +41,9 @@ async function traerdatosapi(){
 
     diplayTablaUno(eventos,idMayorPorcentajeAsis,idMenorPorcentajeAsis,idMayorCapacidad)
 
-    diplayTablaDos(eventos,CategoriasFut,ingresos,porcDeAscisEventFut)
+    diplayTablaDos(CategoriasFut,ingresos,porcDeAscisEventFut)
 
-    
+    diplayTablaTres(CategoriasPass,ingresosPass,porcDeAscisEventPass)
 
   }
   catch(error) { //manejo del error
@@ -54,15 +54,26 @@ async function traerdatosapi(){
 
 traerdatosapi()
 
-function  diplayTablaDos(eventos,CategoriasFut,ingresos,porcDeAscisEventFut){
+function  diplayTablaTres(CategoriasPass,ingresosPass,porcDeAscisEventPass){
+    let CategPass = CategoriasPass
+    let ingrPass = ingresosPass
+    let PorcentajeAsistenciaCatgPass = porcDeAscisEventPass
+    const tablaTresBody = document.getElementById("tabla-3"); //capturamos la tabla del Stats.html para despues modificar el DOM
+    let bodyTablaTres = ``;
+    for (let i = 0; i < CategPass.length; i++) {
+        bodyTablaTres += ` <tr>
+                            <td>${CategPass[i]}</td>
+                            <td> $ ${ingrPass[i]}</td>
+                            <td>${PorcentajeAsistenciaCatgPass[i]}% </td>
+                         </tr> `;                             
+    }
+    tablaTresBody.innerHTML = bodyTablaTres;
+}
+
+function  diplayTablaDos(CategoriasFut,ingresos,porcDeAscisEventFut){
     let CategFut = CategoriasFut
     let ingresosFut = ingresos
     let PorcentajeAsistenciaCatgFut = porcDeAscisEventFut
-    let eventosT = eventos
-    //let MayorPorcentajeAsistentes = ((eventos[idMayorPorc-1].assistance/eventos[idMayorPorc-1].capacity)*100).toFixed(2)
-    //let MenorPorcentajeAsistentes = ((eventos[idMenorPorc-1].assistance/eventos[idMenorPorc-1].capacity)*100).toFixed(2)
-    //console.log("eventos para tabla",eventosT)
-    //console.log("idM",idMayorC)
     const tablaDosBody = document.getElementById("tabla-2"); //capturamos la tabla del Stats.html para despues modificar el DOM
     let bodyTablaDos = ``;
     for (let i = 0; i < CategFut.length; i++) {
