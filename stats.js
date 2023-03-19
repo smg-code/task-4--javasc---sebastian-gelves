@@ -41,6 +41,8 @@ async function traerdatosapi(){
 
     diplayTablaUno(eventos,idMayorPorcentajeAsis,idMenorPorcentajeAsis,idMayorCapacidad)
 
+    diplayTablaDos(eventos,CategoriasFut,ingresos,porcDeAscisEventFut)
+
     
 
   }
@@ -51,6 +53,27 @@ async function traerdatosapi(){
 }
 
 traerdatosapi()
+
+function  diplayTablaDos(eventos,CategoriasFut,ingresos,porcDeAscisEventFut){
+    let CategFut = CategoriasFut
+    let ingresosFut = ingresos
+    let PorcentajeAsistenciaCatgFut = porcDeAscisEventFut
+    let eventosT = eventos
+    //let MayorPorcentajeAsistentes = ((eventos[idMayorPorc-1].assistance/eventos[idMayorPorc-1].capacity)*100).toFixed(2)
+    //let MenorPorcentajeAsistentes = ((eventos[idMenorPorc-1].assistance/eventos[idMenorPorc-1].capacity)*100).toFixed(2)
+    //console.log("eventos para tabla",eventosT)
+    //console.log("idM",idMayorC)
+    const tablaDosBody = document.getElementById("tabla-2"); //capturamos la tabla del Stats.html para despues modificar el DOM
+    let bodyTablaDos = ``;
+    for (let i = 0; i < CategFut.length; i++) {
+        bodyTablaDos += ` <tr>
+                            <td>${CategFut[i]}</td>
+                            <td> $ ${ingresosFut[i]}</td>
+                            <td>${PorcentajeAsistenciaCatgFut[i]}% </td>
+                         </tr> `;                             
+    }
+    tablaDosBody.innerHTML = bodyTablaDos;
+}
 
 function diplayTablaUno(eventos,idMayorPorcentajeAsis,idMenorPorcentajeAsis,idMayorCapacidad){
     let idMayorPorc = idMayorPorcentajeAsis
