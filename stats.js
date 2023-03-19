@@ -15,8 +15,6 @@ let CategoriasPass = []
 let ingresosPass = []
 let porcDeAscisEventPass = []
 
-const tablaUnoBody = document.getElementById("tabla-1") //capturamos la tabla del Stats.html para despues modificar el DOM
-
 async function traerdatosapi(){ 
   try{
     const response = await fetch(urlapi) //await espera la promesa y fetch trae los datos
@@ -27,9 +25,9 @@ async function traerdatosapi(){
     //console.log(fecha)
     
     mostarLosTresEvents(eventos)
-    console.log("id mayor porcentaje asistencia", idMayorPorcentajeAsis)
-    console.log("id menor porcentaje asistencia", idMenorPorcentajeAsis)
-    console.log("id mayor capacidad", idMayorCapacidad)
+    //console.log("id mayor porcentaje asistencia", idMayorPorcentajeAsis)
+    //console.log("id menor porcentaje asistencia", idMenorPorcentajeAsis)
+    //console.log("id mayor capacidad", idMayorCapacidad)
 
     mostrarUpcomEvenPorCateg(eventos,fecha)
     console.log("Categorias futuras",CategoriasFut)
@@ -40,7 +38,11 @@ async function traerdatosapi(){
     console.log("Categorias pasadas",CategoriasPass)
     console.log("ingreso event pasadas",ingresosPass)
     console.log("porcentaje asistencio por categoria pasadas", porcDeAscisEventPass)
+
+    diplayTablaUno(eventos,idMayorPorcentajeAsis,idMenorPorcentajeAsis,idMayorCapacidad)
+
     
+
   }
   catch(error) { //manejo del error
     error={}
@@ -49,6 +51,26 @@ async function traerdatosapi(){
 }
 
 traerdatosapi()
+
+function diplayTablaUno(eventos,idMayorPorcentajeAsis,idMenorPorcentajeAsis,idMayorCapacidad){
+    let idMayorPorc = idMayorPorcentajeAsis
+    let idMenorPorc = idMenorPorcentajeAsis
+    let idMayorC = idMayorCapacidad
+    let eventosT = eventos
+    let MayorPorcentajeAsistentes = ((eventos[idMayorPorc-1].assistance/eventos[idMayorPorc-1].capacity)*100).toFixed(2)
+    let MenorPorcentajeAsistentes = ((eventos[idMenorPorc-1].assistance/eventos[idMenorPorc-1].capacity)*100).toFixed(2)
+    console.log("eventos para tabla",eventosT)
+    console.log("idM",idMayorC)
+    const tablaUnoBody = document.getElementById("tabla-1"); //capturamos la tabla del Stats.html para despues modificar el DOM
+    
+    let bodyTablaUno = `<tr>
+                            <td>${eventosT[idMayorPorc-1].name}  ( ${MayorPorcentajeAsistentes} %)</td>
+                            <td>${eventosT[idMenorPorc-1].name}  ( ${MenorPorcentajeAsistentes} %)</td>
+                            <td>${eventosT[idMayorC-1].name}  (${eventosT[idMayorC-1].capacity})</td>
+                         </tr> `;                             
+    tablaUnoBody.innerHTML = bodyTablaUno;
+}
+
 //Array de categorias
 function categoriasNoRep(eventos) {
     let Categorias = [] 
