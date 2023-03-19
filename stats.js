@@ -8,6 +8,8 @@ let idMenorPorcentajeAsis = 0
 let idMayorCapacidad = 0
 
 let CategoriasFut = []
+let ingresos = []
+let porcDeAscisEventFut = []
 
 const tablaUnoBody = document.getElementById("tabla-1") //capturamos la tabla del Stats.html para despues modificar el DOM
 
@@ -15,18 +17,20 @@ async function traerdatosapi(){
   try{
     const response = await fetch(urlapi) //await espera la promesa y fetch trae los datos
     const data = await response.json() //await espera la promesa y json convierte los datos en manejables
-    console.log(data)
+    //console.log(data)
     eventos = data.events
     fecha = data.currentDate
-    console.log(fecha)
+    //console.log(fecha)
     
     mostarLosTresEvents(eventos)
-    console.log("id mayor porcentaje asistencia", idMayorPorcentajeAsis)
-    console.log("id menor porcentaje asistencia", idMenorPorcentajeAsis)
-    console.log("id mayor capacidad", idMayorCapacidad)
+    //console.log("id mayor porcentaje asistencia", idMayorPorcentajeAsis)
+    //console.log("id menor porcentaje asistencia", idMenorPorcentajeAsis)
+    //console.log("id mayor capacidad", idMayorCapacidad)
 
     mostrarUpcomEvenPorCateg(eventos,fecha)
-    console.log("Categorias futuras",CategoriasFut)
+    //console.log("Categorias futuras",CategoriasFut)
+    //console.log("ingreso bbbxalida",ingresos)
+    console.log("porcentaje asistencio por categoria", porcDeAscisEventFut)
 
     //mostraPassEvenPorCateg(eventos)
     
@@ -51,7 +55,7 @@ function categoriasNoRep(eventos) {
 //Genera los ids de las busquedas, de la primera tabla
 function mostarLosTresEvents(eventos) {
     let arrayeventos = eventos
-    console.log("tres",arrayeventos)
+    //console.log("tres",arrayeventos)
     //tres elementos 
         // 1- Eventos con mayor porcentaje de asistencia
         MayorPorcentajeAsistencia(arrayeventos)
@@ -114,21 +118,33 @@ function mostrarUpcomEvenPorCateg(eventos,fechaActual){
     let arrayeventos = eventos
     let fechaRef = fechaActual
     let arrayDeEventosFut = []
-    let ingresos = []
-    console.log("f",arrayeventos)
-    console.log("a",fechaRef)
+        //console.log("f",arrayeventos)
+        //console.log("a",fechaRef)
 
     arrayDeEventosFut = arrayeventos.filter(each =>each.date > fechaRef )
-    console.log("1",arrayDeEventosFut)
+        //console.log("1",arrayDeEventosFut)
     // categorias de eventos 
     CategoriasFut = CategoriasUpComNoRep(arrayDeEventosFut)
+        //console.log("categorias futuras dentro de la funcion fut",CategoriasFut)
     // Ingresos: estimaso * precio
- /*   ingresos = arrayDeEventosFut.category.filter(each=>{
-        each.category.includes(CategoriasFut)
-        return ingresos.push(each.estimate * each.price)
-    })
-    console.log(ingresos)
-    // Porcentaje de asistencia*/
+        //recorro la array de caregorias
+        CategoriasFut.forEach(each =>{ 
+            let nombreCategoria = each
+            //filtro elemento por categoria
+            ingresos.push(SeparacionPorCategorias(arrayDeEventosFut,nombreCategoria))
+            //a cada elemento que fue filtrado hacemos la cuenta 
+            //esta dentro de la funcion  SeparacionPorCategorias()
+            })
+    //porcentaje de asistencia : (estimados totales / capacdidad total eventos )
+    //let porcDeAscisEventFut = []
+            //recorro la array de caregorias
+        CategoriasFut.forEach(each =>{ 
+            let nombreCategoria = each
+            //filtro elemento por categoria
+            porcDeAscisEventFut.push(PorcentajeAsistenciaPorCategoria(arrayDeEventosFut,nombreCategoria))
+                //console.log("porcetaje estimado xalida",porcDeAscisEventFut)
+            //dentro de la funcion xalculo el porcentaje de asistencia
+            })
 }
 
 function CategoriasUpComNoRep(eventos) {
@@ -141,3 +157,36 @@ function CategoriasUpComNoRep(eventos) {
     return CategoriasFut
 } 
 
+function SeparacionPorCategorias(arrayDeEventosFut , nombreCategoria){
+    let arrayAfiltra = arrayDeEventosFut
+    let nombreCategoriaparaFiltra = nombreCategoria
+        //console.log("entradaArray", arrayAfiltra)
+        //console.log("entradanombre",nombreCategoria)
+    ingresoPorCategoria = 0
+    let arrayFiltrada = arrayAfiltra.filter(each => each.category == nombreCategoriaparaFiltra)
+        //console.log("ssss",arrayFiltrada)
+    //hago la cuenta de ingreso por categoria
+    arrayFiltrada.forEach(each=>{
+        ingresoPorCategoria +=(each.estimate*each.price)
+            //console.log("ingreso",ingresoPorCategoria)
+        })
+    return ingresoPorCategoria
+}
+
+function PorcentajeAsistenciaPorCategoria(arrayDeEventosFut,nombreCategoria){
+    let arrayAfiltra = arrayDeEventosFut
+    let nombreCategoriaparaFiltra = nombreCategoria
+        //console.log("entradaArray", arrayAfiltra)
+        //console.log("entradanombre",nombreCategoriaparaFiltra)
+    let sumaEstimadosTotal = 0
+    let sumaCapacidadTotal = 0
+    let porcentajePorCategoria = 0
+
+    let arrayFiltrada = arrayAfiltra.filter(each => each.category == nombreCategoriaparaFiltra)
+    arrayFiltrada.forEach(each=>{
+        sumaEstimadosTotal += each.estimate
+            //console.log("estimado",sumaEstimadosTotal)
+        sumaCapacidadTotal += each.capacity
+        })
+    return porcentajePorCategoria = ((sumaEstimadosTotal/sumaCapacidadTotal)*100).toFixed(2)
+}
